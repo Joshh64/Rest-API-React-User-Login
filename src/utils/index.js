@@ -1,3 +1,5 @@
+import {writeCookie} from "../common/index"
+
 export const loginUser = async (username, password, newUser) => {
     try {
         const response = await fetch("http://localhost:5002/users/login", {
@@ -12,6 +14,8 @@ export const loginUser = async (username, password, newUser) => {
         })
         const data = await response.json()
         console.log(data)
+        console.log(data.token) // set the cookie with the value as the token received in the response. the response is from our rest API
+        writeCookie("jwt_token", data.token, 7)
         newUser(data.user)
         
     } catch (error) {
@@ -19,7 +23,7 @@ export const loginUser = async (username, password, newUser) => {
     }
 }
 
-export const registerUser = async (username, email, password, newUser) => {
+export const registerUser = async (username, email, password) => {
     try {
       const response = await fetch("http://localhost:5002/users/register", {
         method: "POST",
@@ -55,6 +59,24 @@ export const registerUser = async (username, email, password, newUser) => {
 
       return usernames
 
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  export const deleteUser = async (username) => {
+    try {
+      const response = await fetch ("http://localhost:5002/users/deleteUser", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "username": username
+        }),
+      })
+      const data = await response.json()
+      console.log(data)
     } catch (error) {
       console.log(error)
     }

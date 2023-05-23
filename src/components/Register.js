@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { registerUser } from "../utils/index";
 
-const Register = ({ newUser }) => {
+const Register = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState()
