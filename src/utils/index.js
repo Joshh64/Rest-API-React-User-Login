@@ -2,7 +2,7 @@ import {writeCookie} from "../common/index"
 
 export const loginUser = async (username, password, newUser) => {
     try {
-        const response = await fetch("http://localhost:5002/users/login", {
+        const response = await fetch(`${process.env.REACT_APP_REST_API_URL}login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json" // tells our rest api that the body of this request will be in a JSON format
@@ -25,7 +25,7 @@ export const loginUser = async (username, password, newUser) => {
 
 export const registerUser = async (username, email, password) => {
     try {
-      const response = await fetch("http://localhost:5002/users/register", {
+      const response = await fetch(`${process.env.REACT_APP_REST_API_URL}register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const registerUser = async (username, email, password) => {
 
   export const readUsers = async () => {
     try {
-      const response = await fetch ("http://localhost:5002/users/readUsers", {
+      const response = await fetch (`${process.env.REACT_APP_REST_API_URL}readUsers`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -64,9 +64,28 @@ export const registerUser = async (username, email, password) => {
     }
   }
 
+  export const authCheck = async (cookie) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_REST_API_URL}authCheck`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : cookie
+        },
+      })
+
+      const data = await response.json()
+      console.log(data)
+      return data.user.username
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   export const deleteUser = async (username) => {
     try {
-      const response = await fetch ("http://localhost:5002/users/deleteUser", {
+      const response = await fetch (`${process.env.REACT_APP_REST_API_URL}deleteUser`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"

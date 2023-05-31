@@ -19,7 +19,6 @@ export const getCookie = (cookieName) => {
         let cookie = document.cookie.match(re)[0] // try and find a cookie matching the pattern in the regular expression
         return cookie // if cookie is found return the vale of the cookie
     } catch (error) {
-        console.log(error)
         return false // return false if the cookie isn't found
     }
 }

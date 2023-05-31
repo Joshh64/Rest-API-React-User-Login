@@ -25,7 +25,7 @@ const Login = ({newUser}) => {
                 <br></br>
 
                 <label>Password:
-                    <input onChange={(event) => setPassword(event.target.value)}></input>
+                    <input type="password" onChange={(event) => setPassword(event.target.value)}></input>
                 </label>
 
                 <br></br>
